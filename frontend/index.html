@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href= "style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="background">
+        <div id="glass">
+            <div id="box">
+                <div id ="textpack">
+                    <h1 id="login-title">Login</h1>
+                    <label for="username" class="txt">Usuário:</label>
+                    <input type ="text" placeholder ="Usuário" id="username">
+                    <label for="password" class="txt">Senha:</label>
+                    <input type ="password" placeholder ="Senha" class="password">
+                </div>
+                <div id="btn-container"> 
+                    <button type="button" class="btn btn-secondary" id="btnconfirm">Login  </button>
+                    <div id="underbtn">
+                        <p class ="undertxt"><a class ="underlink" href="#" target="_blank">Esqueceu senha?</a></p>
+                        <p class ="undertxt"><a class = "underlink" href="#" target="_blank">Não tem conta? Cadastre-se!</a></p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        
+       $(document).ready(function() {
+      if (!$('#username').val() && !$('#password').val()) {
+          $('#btnconfirm').prop('disabled', true);
+      }
+   });
+
+   $('#password' || '.username').on('input', function()  {
+      if(!$("#username").val() && !$(".password").val()) {
+          $('#btnconfirm').prop('disabled', true);
+      } else {
+          $('#btnconfirm').prop('disabled', false);
+      }
+   });
+   
+  
+   $("#btnconfirm").on('click', async function sendlogin(){
+    const notyf = new Notyf({x:'top', y:'right'});
+    const url = 'http://localhost:8080/checklogin';
+    const username = $("#username").val();
+    const senha =  $("#password").val()
+    const resp = await fetch(url,{
+    method:'POST',
+     headers:{
+        'Content-Type': 'application/json',
+     },
+     body:JSON.stringify({
+      nome: username,
+      password: senha
+     })
+  });
+  const data = resp.status;
+  if(data === 200){
+    const notification = notyf;
+    notyf.success("Hello!");
+    notyf.dismiss(notification);
+  }else if(data === 404){
+    const notification = notyf;
+    notyf.error("Erro ao logar, verifique os dados!");
+    notyf.dismiss(notification);
+    $("#username").val(null);
+    $("#password").val(null);
+  }})
+</script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+</body>
+</html>

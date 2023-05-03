@@ -1,0 +1,134 @@
+*{
+    box-sizing: border-box;
+    border:0;
+    padding:0;
+}
+body{
+    overflow: hidden;
+}
+
+#background{
+    background-image: url(img/wp6065557-aesthetic-night-pc-wallpapers.jpg);
+    background-repeat: no-repeat;
+    height:100vh;
+    width:100vw;
+    position:absolute;
+    background-position: cover;
+}
+
+#glass{
+    background: rgba(19, 19, 19, 0.21);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.6px);
+    -webkit-backdrop-filter: blur(10.6px);
+    border: 1px solid rgba(19, 19, 19, 0.24);
+    height:100vh;
+    width:100vw;
+    position: absolute;
+    
+}
+
+#box{
+    display:grid;
+    width: 500px;
+    height: 500px;
+    background:rgb(21, 20, 18);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    opacity:0.8;
+    text-align: center;
+    border-radius: 20px;
+}
+
+#textpack{
+    position:relative;
+    display:grid;
+    place-items: center;
+    width:500px;
+    height:300px;
+    margin-top: 50px;
+    padding:-300;
+}
+#username{
+    display: block;
+    width:300px;
+    background:#708090;
+    border-radius: 30px;
+    padding:5px;
+    border:5px;
+    border-color: black;
+    color:rgb(255, 255, 255);
+    height:30px;
+}
+#username::placeholder{
+    color:rgb(255, 255, 255);
+    opacity:0.6;
+}
+.password{
+    display: block;
+    width:300px;
+    background:#708090;
+    border-radius: 30px;
+    margin-top: 10px;
+    padding:10px;
+    border:5px;
+    border-color: black;
+    color:rgb(255, 255, 255);
+    height:30px;
+}
+.password::placeholder{
+    color:rgb(255, 255, 255);
+    opacity:0.6;
+    
+}
+.txt {
+    display: block;;
+    color:rgb(255, 255, 255);
+  }
+  #login-title{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(255, 255, 255);
+  }
+  #btn_container{
+    position:relative;
+    display: inline-block;
+    width:300px;
+  }
+  #btnconfirm{
+    width:200px;
+    background-color: black;
+    color:white;
+  }
+  #btnconfirm:hover{
+    width:200px;
+    background-color: white;
+    color:black;
+    transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+  }
+  #underbtn{
+    margin-top: 10px;
+    display:grid;
+    place-items: center;
+  }
+  .undertxt{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(67, 126, 235);
+  }
+  .underlink:hover{
+    color:white;
+    transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+  }
+  .underlink{
+    text-decoration:none;
+    text-decoration-style: none;
+  }
+
+  #cad-title{
+    color:rgb(255, 255, 255);
+  }
+  

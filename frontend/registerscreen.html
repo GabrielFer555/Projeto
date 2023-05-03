@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Merriweather&family=Open+Sans:ital,wght@0,400;1,300&family=Oswald&family=Pacifico&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&family=Sigmar&display=swap"
+        rel="stylesheet">
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="background">
+        <div id="glass">
+            <div id="box">
+                <div id ="textpack">
+                    <h1 id="cad-title" style = "font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Cadastro</h1>
+                    <label for="username" class="txt">Usuário:</label>
+                    <input type ="text" placeholder ="Usuário" id="username">
+                    <label for="password" class="txt">Senha:</label>
+                    <input type ="password" placeholder ="Senha" class="password" id = "password1">
+                    <input type ="password"  placeholder ="Confirme a senha" class ="password" id ="password2">
+
+                </div>
+                <div id="btn-container"> 
+                    <button type="button" class="btn btn-secondary" id="btnconfirm">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script>
+
+    $('.password1' || '#username').on('input', function()  {
+      if(!$("#username").val() && !$("#password").val()) {
+          $('#btnconfirm').prop('disabled', true);
+      } else {
+          $('#btnconfirm').prop('disabled', false);
+      }
+   });
+    $('#btnconfirm').on('click', async function(){
+        const notyf = new Notyf({x:'top', y:'right'});
+        const notification = notyf;
+        const url = "http://localhost:8080/createaccount";
+        const con = $("#password1").val() == $("#password2").val()?1:0;
+        const user = $("#username").val();
+        const username = $("#username").val();
+        const password = $(".password1").val();
+        if(con == 1){
+            const newaccount = await fetch(url,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    nome:username,
+                    password:password
+                })
+            })
+            const respon = newaccount.status;
+            if(respon == 200){
+                notyf.error("Usuário já cadastrado")
+            }if(respon == 400){
+                notyf.success("Usuário cadastrado com sucesso")
+            }
+        }else{
+            notyf.error("Senhas não são iguais!")
+        }
+    })
+
+    </script>
+
+</body>
+
+</html>
