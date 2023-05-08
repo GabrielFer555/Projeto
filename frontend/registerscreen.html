@@ -10,83 +10,111 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Merriweather&family=Open+Sans:ital,wght@0,400;1,300&family=Oswald&family=Pacifico&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&family=Sigmar&display=swap"
-        rel="stylesheet">
-
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Merriweather&family=Open+Sans:ital,wght@0,400;1,300&family=Oswald&family=Pacifico&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&family=Sigmar&display=swap"
+    rel="stylesheet">
+    
+    
     <title>Login</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
     <div id="background">
         <div id="glass">
             <div id="box">
-                <div id ="textpack">
-                    <h1 id="cad-title" style = "font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Cadastro</h1>
-                    <label for="username" class="txt">Usuário:</label>
-                    <input type ="text" placeholder ="Usuário" id="username">
-                    <label for="password" class="txt">Senha:</label>
-                    <input type ="password" placeholder ="Senha" class="password" id = "password1">
-                    <input type ="password"  placeholder ="Confirme a senha" class ="password" id ="password2">
-
-                </div>
-                <div id="btn-container"> 
-                    <button type="button" class="btn btn-secondary" id="btnconfirm">Cadastrar</button>
-                </div>
+                <div id="textpack">
+                    <h1 id="cad-title"
+                    style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Cadastro
+                </h1>
+                <label for="username" class="txt">Usuário:</label>
+                <input type="text" placeholder="Usuário" id="username">
+                <label for="password" class="txt">Senha:</label>
+                <input type="password" placeholder="Senha" class="password" id="password1">
+                <input type="password" placeholder="Confirme a senha" class="password" id="password2">
+                
+            </div>
+            <div id="btn-container">
+                <button type="button" class="btn btn-secondary" id="btnconfirm">Cadastrar</button>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-loading-overlay/2.1.7/loadingoverlay.min.js"></script>
 
-    $('.password1' || '#username').on('input', function()  {
-      if(!$("#username").val() && !$("#password").val()) {
-          $('#btnconfirm').prop('disabled', true);
-      } else {
-          $('#btnconfirm').prop('disabled', false);
-      }
-   });
-    $('#btnconfirm').on('click', async function(){
-        const notyf = new Notyf({x:'top', y:'right'});
+<script>
+
+    $('#btnconfirm').on('click', async function () {
+        $.LoadingOverlay("show")
+        const notyf = new Notyf({ x: 'top', y: 'right' });
         const notification = notyf;
-        const url = "http://localhost:8080/createaccount";
-        const con = $("#password1").val() == $("#password2").val()?1:0;
+        const url_verify = 'http://localhost:8080/checkregister'
+        const url_cadastro = 'http://localhost:8080/createaccount';
+        const con = $("#password1").val() == $("#password2").val() ? 1 : 0;
         const user = $("#username").val();
         const username = $("#username").val();
-        const password = $(".password1").val();
-        if(con == 1){
-            const newaccount = await fetch(url,{
+        const password = $("#password").val();
+        if (con == 1) {
+            const verification = await fetch(url_verify, {
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({
-                    nome:username,
-                    password:password
+                body: JSON.stringify({
+                    nome: username,
                 })
             })
-            const respon = newaccount.status;
-            if(respon == 200){
+            const respon = verification.status;
+            if (respon == 200) {
                 notyf.error("Usuário já cadastrado")
-            }if(respon == 400){
-                notyf.success("Usuário cadastrado com sucesso")
+            } if (respon == 404) {
+                const registering = await fetch(url_cadastro, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            nome: username,
+                            password: password
+                        })
+                    }
+                    )
+                    const result = registering.status;
+                    if (result == 201) {
+                        notyf.success("Usuário registrado com sucesso!")
+                        notification.dismiss(notyf);
+                        window.location.href = "Index.html";
+                    } if (result === 500) {
+                        notyf.error("Erro ao conectar, verifique!")
+                        notification.dismiss(notyf);
+                        $("#username").val(null);
+                        $(".password").val(null);
+                    }
+                    else {
+                        notyf.error("Ocorreu um erro ao criar um usuário")
+                        notification.dismiss(notyf);
+                        $("#username").val(null);
+                        $(".password").val(null);
+                    }
+                    
+                }
+                
+            } else {
+                notyf.error("Senhas não são iguais!")
             }
-        }else{
-            notyf.error("Senhas não são iguais!")
-        }
-    })
+        })
+        
+        </script>
 
-    </script>
 
 </body>
 
