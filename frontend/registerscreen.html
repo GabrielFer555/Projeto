@@ -54,15 +54,14 @@
 <script>
 
     $('#btnconfirm').on('click', async function () {
-        $.LoadingOverlay("show")
         const notyf = new Notyf({ x: 'top', y: 'right' });
         const notification = notyf;
         const url_verify = 'http://localhost:8080/checkregister'
         const url_cadastro = 'http://localhost:8080/createaccount';
         const con = $("#password1").val() == $("#password2").val() ? 1 : 0;
-        const user = $("#username").val();
         const username = $("#username").val();
-        const password = $("#password").val();
+        const password = $("#password1").val();
+        $.LoadingOverlay("show")
         if (con == 1) {
             const verification = await fetch(url_verify, {
                 method: 'POST',
@@ -75,6 +74,7 @@
             })
             const respon = verification.status;
             if (respon == 200) {
+                $.LoadingOverlay("hide")
                 notyf.error("Usuário já cadastrado")
             } if (respon == 404) {
                 const registering = await fetch(url_cadastro, {
@@ -88,6 +88,7 @@
                         })
                     }
                     )
+                    $.LoadingOverlay("hide")
                     const result = registering.status;
                     if (result == 201) {
                         notyf.success("Usuário registrado com sucesso!")
@@ -100,9 +101,9 @@
                         $(".password").val(null);
                     }
                     else {
+                        $.LoadingOverlay("hide")
                         notyf.error("Ocorreu um erro ao criar um usuário")
                         notification.dismiss(notyf);
-                        $("#username").val(null);
                         $(".password").val(null);
                     }
                     

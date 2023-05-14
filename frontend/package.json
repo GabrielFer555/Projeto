@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "gasparesganga-jquery-loading-overlay": "^2.1.7",
     "notyf": "^3.10.0",
     "toastr": "^2.1.4"
   }
